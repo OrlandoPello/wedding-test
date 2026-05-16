@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation</title>
+  <script src="_sdk/element_sdk.js"></script>
+  <script src="_sdk/data_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;family=Great+Vibes&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS.css">
+</head>
+ <body class="h-full"><!-- Cover Screen -->
+  <div id="cover-screen" class="cover-screen">
+   <div class="cover-bg-pattern"></div><!-- Decorative corner ornaments -->
+   <svg class="absolute top-4 left-4 w-16 h-16 opacity-20" viewbox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="0.5"><path d="M0,50 Q25,25 50,0 M0,70 Q35,35 70,0 M0,90 Q45,45 90,0" />
+   </svg>
+   <svg class="absolute top-4 right-4 w-16 h-16 opacity-20" viewbox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="0.5" style="transform: scaleX(-1)"><path d="M0,50 Q25,25 50,0 M0,70 Q35,35 70,0 M0,90 Q45,45 90,0" />
+   </svg>
+   <svg class="absolute bottom-4 left-4 w-16 h-16 opacity-20" viewbox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="0.5" style="transform: scaleY(-1)"><path d="M0,50 Q25,25 50,0 M0,70 Q35,35 70,0 M0,90 Q45,45 90,0" />
+   </svg>
+   <svg class="absolute bottom-4 right-4 w-16 h-16 opacity-20" viewbox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="0.5" style="transform: scale(-1,-1)"><path d="M0,50 Q25,25 50,0 M0,70 Q35,35 70,0 M0,90 Q45,45 90,0" />
+   </svg>
+   <div class="relative z-10 px-6">
+    <p class="font-body text-sm tracking-[0.3em] uppercase opacity-60 animate-fade-in" style="color: var(--accent);">The Wedding Of</p>
+    <div class="my-6 animate-fade-in delay-200" style="opacity:0;">
+     <h1 class="font-script text-5xl md:text-7xl animate-shimmer" id="cover-bride">Chikmatun Chamidah</h1>
+     <p class="font-script text-3xl my-2" style="color: var(--accent);">&amp;</p>
+     <h1 class="font-script text-5xl md:text-7xl animate-shimmer" id="cover-groom">Ahmad Yaufhy</h1>
+    </div>
+    <div class="flex items-center justify-center gap-3 my-6 animate-fade-in delay-300" style="opacity:0;">
+     <div class="ornament-line"></div>
+     <svg width="20" height="20" viewbox="0 0 24 24" fill="var(--accent)" opacity="0.6">
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" /><circle cx="12" cy="12" r="3" />
+     </svg>
+     <div class="ornament-line"></div>
+    </div>
+    <p class="font-body text-base tracking-wider opacity-70 animate-fade-in delay-400" style="opacity:0;">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+    <p class="font-display text-xl md:text-2xl font-bold mt-2 animate-fade-in delay-500" style="opacity:0; color: var(--accent);" id="cover-guest"></p><button id="open-btn" class="btn-gold mt-8 animate-scale-in delay-700" style="opacity:0;" onclick="openInvitation()"> <span class="flex items-center gap-2"> <i data-lucide="mail-open" style="width:18px;height:18px;"></i> Buka Undangan </span> </button>
+   </div>
+  </div><!-- Main Content (hidden initially) -->
+  <div id="main-content" class="invitation-wrapper" style="display:none;"><!-- Floating leaves -->
+   <div id="leaves-container"></div><!-- Section: Bismillah -->
+   <section class="section-bg py-20 px-6 text-center">
+    <div class="max-w-lg mx-auto obs-hidden" data-obs>
+     <p class="font-display text-lg tracking-wider opacity-60 mb-6">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+     <p class="font-body text-base leading-relaxed opacity-80">Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
+     <p class="font-body text-base leading-relaxed opacity-70 mt-4">Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, kami bermaksud menyelenggarakan pernikahan putra-putri kami:</p>
+    </div>
+   </section><!-- Section: Mempelai -->
+   <section class="py-16 px-6 text-center">
+    <div class="max-w-md mx-auto"><!-- Bride -->
+     <div class="obs-hidden mb-12" data-obs>
+      <div class="w-32 h-32 rounded-full mx-auto mb-4 flex items-center justify-center gold-border" style="background: rgba(201,169,110,0.08);"><span class="text-5xl"><img src="https://www.image2url.com/r2/default/images/1778490203984-6583c76e-d4ea-44ab-a4e2-6e36ae2a1b15.png" alt="FOTO LIST PELATIH" width="370" height="370"></span>
+      </div>
+      <h2 class="font-script text-4xl md:text-5xl mb-2" style="color: var(--accent);" id="bride-name">Chikmatun Chamidah</h2>
+      <p class="font-body text-base opacity-70">Putri ke 2 dari Alm. Bpk Chamid &amp; Ibu Miyem</p>
+     </div>
+     <div class="obs-hidden flex items-center justify-center gap-3 my-8" data-obs>
+      <div class="ornament-line"></div><span class="font-script text-4xl" style="color: var(--accent);">&amp;</span>
+      <div class="ornament-line"></div>
+     </div><!-- Groom -->
+     <div class="obs-hidden" data-obs>
+      <div class="w-32 h-32 rounded-full mx-auto mb-4 flex items-center justify-center gold-border" style="background: rgba(201,169,110,0.08);"><span class="text-5xl">🤵</span>
+      </div>
+      <h2 class="font-script text-4xl md:text-5xl mb-2" style="color: var(--accent);" id="groom-name">Ahmad Yaufhy</h2>
+      <p class="font-body text-base opacity-70">Putra Ke 2 dari Alm. Bapak Yayan Sopian &amp; Alm. Ibu Anah Hasanah</p>
+     </div>
+    </div>
+   </section><!-- Section: Countdown -->
+   <section class="section-bg py-16 px-6 text-center">
+    <div class="max-w-md mx-auto obs-hidden" data-obs>
+     <p class="font-body text-sm tracking-[0.3em] uppercase opacity-50 mb-2">Menghitung Hari</p>
+     <h3 class="font-display text-2xl mb-8" style="color: var(--accent);">Counting Down</h3>
+     <div class="flex justify-center gap-3" id="countdown">
+      <div class="countdown-box">
+       <p class="font-display text-3xl font-bold" style="color: var(--accent);" id="cd-days">15</p>
+       <p class="font-body text-xs uppercase tracking-wider opacity-60 mt-1">Hari</p>
+      </div>
+      <div class="countdown-box">
+       <p class="font-display text-3xl font-bold" style="color: var(--accent);" id="cd-hours">10</p>
+       <p class="font-body text-xs uppercase tracking-wider opacity-60 mt-1">Jam</p>
+      </div>
+      <div class="countdown-box">
+       <p class="font-display text-3xl font-bold" style="color: var(--accent);" id="cd-mins">10</p>
+       <p class="font-body text-xs uppercase tracking-wider opacity-60 mt-1">Menit</p>
+      </div>
+      <div class="countdown-box">
+       <p class="font-display text-3xl font-bold" style="color: var(--accent);" id="cd-secs">0</p>
+       <p class="font-body text-xs uppercase tracking-wider opacity-60 mt-1">Detik</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Section: Acara -->
+   <section class="py-16 px-6 text-center">
+    <div class="max-w-lg mx-auto">
+     <div class="obs-hidden" data-obs>
+      <p class="font-body text-sm tracking-[0.3em] uppercase opacity-50 mb-2">Waktu &amp; Tempat</p>
+      <h3 class="font-display text-2xl mb-10" style="color: var(--accent);">Jadwal Acara</h3>
+     </div><!-- Akad -->
+     <div class="obs-hidden gold-border rounded-lg p-6 mb-6" data-obs>
+      <div class="flex items-center justify-center gap-2 mb-3"><i data-lucide="book-open" style="width:20px;height:20px;color:var(--accent);"></i>
+       <h4 class="font-display text-xl" style="color: var(--accent);">Akad Nikah</h4>
+      </div>
+      <p class="font-body text-base opacity-80" id="akad-date">Sabtu, 13 Juni 2026</p>
+      <p class="font-body text-base opacity-60" id="akad-time">Pukul 08:00 - 10:00 WIB</p>
+     </div><!-- Resepsi -->
+     <div class="obs-hidden gold-border rounded-lg p-6 mb-6" data-obs>
+      <div class="flex items-center justify-center gap-2 mb-3"><i data-lucide="party-popper" style="width:20px;height:20px;color:var(--accent);"></i>
+       <h4 class="font-display text-xl" style="color: var(--accent);">Resepsi</h4>
+      </div>
+      <p class="font-body text-base opacity-80" id="resepsi-date">Sabtu, 13 Juni 2026</p>
+      <p class="font-body text-base opacity-60" id="resepsi-time">Pukul 11:00 - 15:00 WIB</p>
+     </div><!-- Venue -->
+     <div class="obs-hidden gold-border rounded-lg p-6 mb-6" data-obs>
+      <div class="flex items-center justify-center gap-2 mb-3"><i data-lucide="map-pin" style="width:20px;height:20px;color:var(--accent);"></i>
+       <h4 class="font-display text-xl" style="color: var(--accent);">Lokasi</h4>
+      </div>
+      <p class="font-body text-base opacity-80" id="venue-name">Rumah chika</p>
+      <p class="font-body text-sm opacity-60 mt-1" id="venue-address">Jl.Dukuh Bedelan RT 003 / RW 001 Karangsambung Sempor Kebumen</p>
+     </div>
+     <!-- Google Map -->
+     <div class="p-4 mb-6">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.33456789!2d109.524678!3d-7.612345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMzYnNDQuNCJTIDEwOcKwMzEnMjguOCJF!5e0!3m2!1sid!2sid!4v1700000000000" 
+    width="100%" 
+    height="300" 
+    style="border:0; border-radius: 8px;" 
+    allowfullscreen="" 
+    loading="lazy">
+  </iframe>
+  
+  <button onclick="openMapDirections()" class="btn-gold w-full text-sm mt-4"> 
+    <span class="flex items-center justify-center gap-2"> 
+      <i data-lucide="navigation" style="width:20px;height:16px;"></i> Buka di Google Maps 
+    </span> 
+  </button>
+</div>
+    </div>
+   </section><!-- Section: Gallery -->
+   <section class="section-bg py-16 px-6 text-center">
+    <div class="max-w-md mx-auto">
+     <div class="obs-hidden" data-obs>
+      <p class="font-body text-sm tracking-[0.3em] uppercase opacity-50 mb-2">Galeri</p>
+      <h3 class="font-display text-2xl mb-8" style="color: var(--accent);">Momen Bahagia</h3>
+     </div>
+     <div class="gallery-grid obs-hidden" data-obs>
+      <div class="gallery-item">
+       <span><img src="https://image2url.com/r2/default/images/1773123793882-3558d1c0-88ec-4c4b-a68a-a6e1e27516dc.png" alt="FOTO LIST PELATIH" width="300" height="300"></span>
+      </div>
+      <div class="gallery-item">
+       <span>💐</span>
+      </div>
+      <div class="gallery-item">
+       <span>🕌</span>
+      </div>
+      <div class="gallery-item">
+       <span>🌹</span>
+      </div>
+      <div class="gallery-item">
+       <span>💑</span>
+      </div>
+      <div class="gallery-item">
+       <span>🎊</span>
+      </div>
+     </div>
+    </div>
+   </section><!-- Section: Quran Verse -->
+   <section class="py-16 px-6 text-center">
+    <div class="max-w-lg mx-auto obs-hidden" data-obs>
+     <svg class="mx-auto mb-6" width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.6"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" />
+     </svg>
+     <p class="font-body text-lg italic leading-relaxed opacity-80">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."</p>
+     <p class="font-body text-sm opacity-50 mt-4">— QS. Ar-Rum: 21</p>
+    </div>
+   </section><!-- Section: RSVP & Wishes -->
+   <section class="section-bg py-16 px-6 text-center">
+    <div class="max-w-md mx-auto">
+     <div class="obs-hidden" data-obs>
+      <p class="font-body text-sm tracking-[0.3em] uppercase opacity-50 mb-2">RSVP</p>
+      <h3 class="font-display text-2xl mb-8" style="color: var(--accent);">Konfirmasi Kehadiran &amp; Ucapan</h3>
+     </div>
+     <form class="rsvp-form obs-hidden text-left" data-obs id="rsvp-form">
+      <div class="mb-4"><label class="font-body text-sm opacity-70 block mb-1">Nama</label> <input type="text" id="rsvp-name" placeholder="Masukkan nama Anda" required>
+      </div>
+      <div class="mb-4"><label class="font-body text-sm opacity-70 block mb-1">Kehadiran</label> <select id="rsvp-attendance"> <option value="Hadir">Insya Allah Hadir</option> <option value="Tidak Hadir">Maaf, Tidak Bisa Hadir</option> <option value="Masih Ragu">Masih Ragu</option> </select>
+      </div>
+      <div class="mb-6"><label class="font-body text-sm opacity-70 block mb-1">Ucapan &amp; Doa</label> <textarea id="rsvp-message" rows="3" placeholder="Tulis ucapan untuk mempelai..."></textarea>
+      </div><button type="submit" class="btn-gold w-full" id="rsvp-submit"> <span class="flex items-center justify-center gap-2"> <i data-lucide="send" style="width:16px;height:16px;"></i> Kirim Ucapan </span> </button>
+      <p id="rsvp-limit-warning" class="text-center mt-3 text-sm" style="color:#e57373;display:none;">Batas ucapan telah tercapai (999).</p>
+     </form><!-- Wishes List -->
+     <div class="mt-10 obs-hidden" data-obs>
+      <h4 class="font-display text-lg mb-4 opacity-80">Ucapan &amp; Doa</h4>
+      <div id="wishes-list" class="text-left max-h-96 overflow-y-auto pr-1">
+       <p class="font-body text-sm opacity-50 text-center" id="wishes-empty">Belum ada ucapan. Jadilah yang pertama! 💌</p>
+      </div>
+      <p class="font-body text-xs opacity-40 mt-3" id="wishes-count"></p>
+     </div>
+    </div>
+   </section>
+   <!-- Section: Gift & Payment -->
+   <section class="section-bg py-16 px-6 text-center">
+    <div class="max-w-md mx-auto">
+     <div class="obs-hidden" data-obs>
+      <p class="font-body text-sm tracking-[0.3em] uppercase opacity-50 mb-2">Hadiah</p>
+      <h3 class="font-display text-2xl mb-8" style="color: var(--accent);">Ucapan Terimakasih</h3>
+      <p class="font-body text-base opacity-70 mb-6">Doa dan kehadiran Anda adalah hadiah terbesar. Namun jika ingin memberikan hadiah, berikut rekening kami:</p>
+     </div>
+     <div class="obs-hidden gold-border rounded-lg p-6 mb-6" data-obs id="bank-info">
+      <div class="flex items-center justify-center gap-2 mb-4"><i data-lucide="bank" style="width:20px;height:20px;color:var(--accent);"></i>
+       <h4 class="font-display text-lg" style="color: var(--accent);" id="bank-name-display">BCA</h4>
+      </div>
+      <div class="text-left">
+       <p class="font-body text-xs opacity-60 mb-1">Atas Nama:</p>
+       <p class="font-body text-base opacity-80 mb-4 font-semibold" id="account-holder-display">Chikmatun Chamidah</p>
+       <p class="font-body text-xs opacity-60 mb-1">Nomor Rekening:</p>
+       <div class="flex items-center gap-2">
+        <p class="font-body text-base opacity-80 font-semibold" id="account-number-display">5720810052</p><button type="button" class="text-xs opacity-70 hover:opacity-100 transition-opacity" onclick="copyToClipboard()" title="Salin nomor rekening"> <i data-lucide="copy" style="width:16px;height:16px;"></i> </button>
+       </div>
+      </div>
+     </div>
+     <form class="obs-hidden text-left" data-obs id="gift-form">
+      <div class="mb-4"><label class="font-body text-sm opacity-70 block mb-1">Nominal Hadiah (Opsional)</label> <select id="gift-amount"> <option value="">-- Pilih Nominal --</option> <option value="100000">Rp 100.000</option> <option value="250000">Rp 250.000</option> <option value="500000">Rp 500.000</option> <option value="1000000">Rp 1.000.000</option> <option value="custom">Nominal Lainnya</option> </select>
+      </div>
+      <div class="mb-6" id="custom-amount-wrapper" style="display:none;"><label class="font-body text-sm opacity-70 block mb-1">Masukkan Nominal</label> <input type="number" id="custom-gift-amount" placeholder="Contoh: 250000" min="0">
+      </div>
+      <div class="mb-6"><label class="font-body text-sm opacity-70 block mb-1">Nama (Jika berbeda)</label> <input type="text" id="gift-name" placeholder="Nama untuk catatan (opsional)">
+      </div><button type="submit" class="btn-gold w-full" id="gift-submit"> <span class="flex items-center justify-center gap-2"> <i data-lucide="gift" style="width:16px;height:16px;"></i> Catat Hadiah </span> </button>
+      <p id="gift-limit-warning" class="text-center mt-3 text-sm" style="color:#e57373;display:none;">Batas pencatatan hadiah telah tercapai.</p>
+     </form>
+    </div>
+   </section>
+   <section class="py-16 px-6 text-center">
+    <div class="max-w-md mx-auto obs-hidden" data-obs>
+     <div class="flex items-center justify-center gap-3 mb-6">
+      <div class="ornament-line"></div>
+      <svg width="16" height="16" viewbox="0 0 24 24" fill="var(--accent)" opacity="0.5">
+       <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      <div class="ornament-line"></div>
+     </div>
+     <p class="font-body text-base opacity-70 mb-2">Merupakan suatu kehormatan dan kebahagiaan apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
+     <p class="font-body text-base opacity-70 mb-6">Atas do'a dan restunya kami ucapkan terima kasih.</p>
+     <p class="font-body text-lg opacity-50">Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
+     <div class="mt-8">
+      <p class="font-script text-3xl" style="color: var(--accent);" id="footer-names">Chikmatun Chamidah &amp; Ahmad Yaufhy</p>
+     </div>
+    </div>
+   </section><!-- Section: Closing & Thanks -->
+   <section class="section-bg py-16 px-6 text-center">
+    <div class="max-w-lg mx-auto obs-hidden" data-obs>
+     <p class="font-body text-sm tracking-[0.3em] uppercase opacity-50 mb-6">Terima Kasih</p>
+     <div class="gold-border rounded-lg p-8">
+      <p class="font-body text-lg leading-relaxed opacity-80 mb-4">Kami mengucapkan terima kasih yang sebesar-besarnya atas kehadiran, do'a, dan dukungan Bapak/Ibu/Saudara/i dalam hari istimewa kami.</p>
+      <p class="font-body text-base opacity-70 mb-6">Semoga acara ini dapat berjalan dengan lancar dan menjadi momen berkesan bagi kita semua.</p>
+      <div class="flex items-center justify-center gap-3 my-6">
+       <div class="ornament-line"></div>
+       <svg width="20" height="20" viewbox="0 0 24 24" fill="var(--accent)" opacity="0.5">
+        <path d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2m0 18c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8z" /><path d="M11 6h2v6h-2zm0 8h2v2h-2z" />
+       </svg>
+       <div class="ornament-line"></div>
+      </div>
+      <p class="font-body text-base opacity-60 italic mb-4">"Segala puji bagi Allah yang telah menghubungkan hati kami dengan tali cinta dan kasih sayang"</p>
+      <p class="font-body text-sm opacity-50">Semoga berkah dan rahmat selalu menyertai kita semua</p>
+     </div>
+     <div class="mt-10">
+      <p class="font-body text-xs opacity-40">Wassalamu'alaikum Warahmatullahi Wabarakatuh 🤍</p>
+     </div>
+    </div>
+   </section>
+   
+   <!-- Music Toggle --> 
+   <button class="music-btn" id="music-btn" onclick="toggleMusic()" title="Putar/Hentikan Musik"> <i data-lucide="music" style="width:20px;height:20px;"></i></button> 
+  
+  
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="music" style="width:20px;height:20px;" class="lucide lucide-music"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+  
+
+
+   <!-- Toast -->
+   <div class="toast" id="toast" id="toast"></div>
+  </div>
+
+ <!-- music-->
+  <audio id="bg-music" loop>
+    <source src="Rizky Febian Feat. Mahalini - Bermuara [Official Lyric Video].mp3" type="audio/mpeg">
+  </audio>
+
+  <!--script-->
+    <script src="Script.js" defer></script>
+</body>
+</html>
