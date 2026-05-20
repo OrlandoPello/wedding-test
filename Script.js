@@ -4,8 +4,8 @@ const defaultConfig = {
     groom_name: 'Ahmad Yaufhy'
 };
 
-// URL Bersih & Anon Key Asli dari Dashboard Supabase Lu (Foto image_e7a26d.jpg)
-const SUPABASE_URL = "https://cwzpsbadhtfwbzcghjst.supabase.co/rest/v1/";
+// URL Bersih & Anon Key Asli dari Dashboard Supabase Lu
+const SUPABASE_URL = "https://cwzpsbadhtfwbzcghjst.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN3enBzYmFkaHRmd2J6Y2doanN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxOTYyMTMsImV4cCI6MjA5NDc3MjIxM30.C8jL-gyv0lJ1QatpfgFiMJZuV7JmuP2867RT0docN1k";
 
 const lagu = document.getElementById('bg-music');
@@ -40,8 +40,8 @@ document.getElementById('rsvp-form')?.addEventListener('submit', async function(
     btn.innerHTML = "Mengirim...";
 
     try {
-        // Tembak langsung ke tabel bernama 'wishes'
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/`, {
+        // REVISI: Endpoint diarahkan langsung dan tepat ke tabel 'wishes'
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/wishes`, {
             method: 'POST',
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
@@ -93,7 +93,7 @@ document.getElementById('gift-form')?.addEventListener('submit', async function(
     btn.innerHTML = "Mencatat...";
 
     try {
-        // Tembak ke tabel bernama 'gifts' di Supabase
+        // Endpoint ke tabel 'gifts' sudah disinkronkan dengan URL utama
         const response = await fetch(`${SUPABASE_URL}/rest/v1/gifts`, {
             method: 'POST',
             headers: {
@@ -168,7 +168,7 @@ async function fetchWishes() {
 // ====== 6. TOOLS & ANIMASI ======
 function openMapDirections() {
     const alamat = "Jl.Dukuh Bedelan RT 003 / RW 001 Karangsambung Sempor Kebumen";
-    window.open(`https://maps.google.com/?q=${encodeURIComponent(alamat)}`, '_blank');
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(alamat)}`, '_blank');
 }
 
 function startCountdown() {
@@ -200,6 +200,7 @@ function toggleMusic() {
     }
 }
 
+// REVISI: Menghapus fungsi openMapDirections duplikat di bawah ini agar kode bersih
 function showToast(message) {
     const toast = document.getElementById('toast');
     if (!toast) return;
@@ -210,12 +211,6 @@ function showToast(message) {
     setTimeout(() => {
         toast.classList.remove('show');
     }, 2000);
-}
-
-// Perbaikan fungsi map link typo sebelumnya
-function openMapDirections() {
-    const alamat = "Jl.Dukuh Bedelan RT 003 / RW 001 Karangsambung Sempor Kebumen";
-    window.open(`https://maps.google.com/?q=${encodeURIComponent(alamat)}`, '_blank');
 }
 
 function initObserver() {
