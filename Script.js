@@ -4,8 +4,8 @@ const defaultConfig = {
     groom_name: 'Ahmad Yaufhy'
 };
 
-// URL dan Anon Key diambil langsung dari dashboard Supabase lu (Foto ke-2)
-const SUPABASE_URL = "https://cwzpsbadhtfwbzcghjst.supabase.co/rest/v1/";
+// URL Bersih & Anon Key Asli dari Dashboard Supabase Lu (Foto image_e7a26d.jpg)
+const SUPABASE_URL = "https://cwzpsbadhtfwbzcghjst.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN3enBzYmFkaHRmd2J6Y2doanN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxOTYyMTMsImV4cCI6MjA5NDc3MjIxM30.C8jL-gyv0lJ1QatpfgFiMJZuV7JmuP2867RT0docN1k";
 
 const lagu = document.getElementById('bg-music');
@@ -40,8 +40,8 @@ document.getElementById('rsvp-form')?.addEventListener('submit', async function(
     btn.innerHTML = "Mengirim...";
 
     try {
-        // Tembak langsung ke tabel bernama 'wishes' di Supabase
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/`, {
+        // Tembak langsung ke tabel bernama 'wishes'
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/wishes`, {
             method: 'POST',
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
@@ -137,7 +137,7 @@ async function fetchWishes() {
 
     try {
         // Ambil data dari tabel 'wishes' diurutkan berdasarkan yang terbaru
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/?select=*&order=created_at.desc`, {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/wishes?select=*&order=created_at.desc`, {
             method: 'GET',
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
@@ -210,6 +210,12 @@ function showToast(message) {
     setTimeout(() => {
         toast.classList.remove('show');
     }, 2000);
+}
+
+// Perbaikan fungsi map link typo sebelumnya
+function openMapDirections() {
+    const alamat = "Jl.Dukuh Bedelan RT 003 / RW 001 Karangsambung Sempor Kebumen";
+    window.open(`https://maps.google.com/?q=${encodeURIComponent(alamat)}`, '_blank');
 }
 
 function initObserver() {
