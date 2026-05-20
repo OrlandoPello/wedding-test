@@ -5,7 +5,7 @@ const defaultConfig = {
 };
 
 // URL dan Anon Key diambil langsung dari dashboard Supabase lu (Foto ke-2)
-const SUPABASE_URL = "https://cwzpsbadhtfwbzcghjst.supabase.co";
+const SUPABASE_URL = "https://cwzpsbadhtfwbzcghjst.supabase.co/rest/v1/";
 const SUPABASE_ANON_KEY = "sb_publishable_apfB-ytc2qvPXn_1Xj4W_Q_JJSTSzfK";
 
 const lagu = document.getElementById('bg-music');
