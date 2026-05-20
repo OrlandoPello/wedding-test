@@ -5,7 +5,7 @@ const defaultConfig = {
 };
 
 // URL Bersih & Anon Key Asli dari Dashboard Supabase Lu (Foto image_e7a26d.jpg)
-const SUPABASE_URL = "https://cwzpsbadhtfwbzcghjst.supabase.co";
+const SUPABASE_URL = "https://cwzpsbadhtfwbzcghjst.supabase.co/rest/v1/";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN3enBzYmFkaHRmd2J6Y2doanN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxOTYyMTMsImV4cCI6MjA5NDc3MjIxM30.C8jL-gyv0lJ1QatpfgFiMJZuV7JmuP2867RT0docN1k";
 
 const lagu = document.getElementById('bg-music');
