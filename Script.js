@@ -41,7 +41,7 @@ document.getElementById('rsvp-form')?.addEventListener('submit', async function(
 
     try {
         // Tembak langsung ke tabel bernama 'wishes'
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/wishes`, {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/`, {
             method: 'POST',
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
