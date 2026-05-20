@@ -4,6 +4,10 @@ const defaultConfig = {
     groom_name: 'Ahmad Yaufhy'
 };
 
+// URL dan Anon Key diambil langsung dari dashboard Supabase lu (Foto ke-2)
+const SUPABASE_URL = "https://cwzpsbadhtfwbzcghjst.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_apfB-ytc2qvPXn_1Xj4W_Q_JJSTSzfK";
+
 const lagu = document.getElementById('bg-music');
 
 // ====== 2. BUKA UNDANGAN ======
@@ -20,10 +24,10 @@ function openInvitation() {
     startCountdown();
     initObserver();
     createLeaves();
-    fetchWishes(); 
+    fetchWishes(); // Ambil ucapan asli dari Supabase saat undangan dibuka
 }
 
-// ====== 3. RSVP HANDLER (SMART HYBRID) ======
+// ====== 3. RSVP HANDLER (LANGSUNG KE SUPABASE) ======
 document.getElementById('rsvp-form')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('rsvp-submit');
@@ -35,41 +39,41 @@ document.getElementById('rsvp-form')?.addEventListener('submit', async function(
     btn.disabled = true;
     btn.innerHTML = "Mengirim...";
 
-    if (window.dataSdk) {
-        // JALUR SDK PERMANEN
-        try {
-            const res = await window.dataSdk.create({ 
-                name, message, attendance, 
-                created_at: new Date().toISOString() 
-            });
-            if (res.isOk) {
-                alert("Terkirim ke Database Pembina! ✨");
-                this.reset();
-                if (typeof fetchWishes === 'function') fetchWishes();
-            }
-        } catch (err) { console.error("Error SDK:", err); }
-    } else {
-        // JALUR SIMULASI (Muncul di bawah)
-        setTimeout(() => {
-            const list = document.getElementById('wishes-list');
-            if (list) {
-                document.getElementById('wishes-empty').style.display = 'none';
-                const html = `
-                    <div class="mb-4 p-4 rounded-lg bg-white/5 border border-white/10 text-left animate-fade-in">
-                        <p class="font-bold text-sm text-amber-200">${name} <span class="text-[10px] opacity-50 text-white font-normal ml-2 italic">(${attendance})</span></p>
-                        <p class="text-sm opacity-90 mt-2 text-white">${message}</p>
-                    </div>`;
-                list.insertAdjacentHTML('afterbegin', html);
-            }
-            alert("Berhasil! (Mode Simulasi)");
+    try {
+        // Tembak langsung ke tabel bernama 'wishes' di Supabase
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/wishes`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
+            },
+            body: JSON.stringify({
+                name: name,
+                message: message,
+                attendance: attendance,
+                created_at: new Date().toISOString()
+            })
+        });
+
+        if (response.ok) {
+            alert("Ucapan dan RSVP kamu berhasil terkirim! ✨");
             this.reset();
-        }, 800);
+            fetchWishes(); // Refresh list ucapan biar langsung muncul yang baru
+        } else {
+            throw new Error("Gagal menyimpan ke Supabase");
+        }
+    } catch (err) { 
+        console.error("Error Supabase:", err);
+        alert("Waduh gagal kirim, Wir. Cek koneksi atau struktur tabel database lu.");
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
     }
-    btn.disabled = false;
-    btn.innerHTML = originalHTML;
 });
 
-// ====== 4. CATAT HADIAH (SMART HYBRID) ======
+// ====== 4. CATAT HADIAH (LANGSUNG KE SUPABASE) ======
 document.getElementById('gift-form')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('gift-submit');
@@ -77,7 +81,6 @@ document.getElementById('gift-form')?.addEventListener('submit', async function(
     const amountSelect = document.getElementById('gift-amount').value;
     const customAmount = document.getElementById('custom-gift-amount')?.value;
     
-    // Tentukan nominal yang dipakai
     const finalAmount = amountSelect === 'custom' ? customAmount : amountSelect;
 
     if (!finalAmount) {
@@ -89,64 +92,83 @@ document.getElementById('gift-form')?.addEventListener('submit', async function(
     const originalHTML = btn.innerHTML;
     btn.innerHTML = "Mencatat...";
 
-    if (window.dataSdk) {
-        try {
-            await window.dataSdk.create({ 
-                type: 'gift', 
-                name, 
+    try {
+        // Tembak ke tabel bernama 'gifts' di Supabase
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/gifts`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
                 amount: finalAmount,
-                created_at: new Date().toISOString() 
-            });
-            alert("Konfirmasi hadiah tersimpan di Database! 🙏");
-            this.reset();
-        } catch (err) { console.error(err); }
-    } else {
-        setTimeout(() => {
-            alert(`Terima kasih ${name}! Konfirmasi hadiah Rp ${finalAmount} diterima (Mode Simulasi).`);
+                created_at: new Date().toISOString()
+            })
+        });
+
+        if (response.ok) {
+            alert(`Terima kasih ${name}! Konfirmasi hadiah Rp ${finalAmount} berhasil dicatat. 🙏`);
             this.reset();
             const wrapper = document.getElementById('custom-amount-wrapper');
             if (wrapper) wrapper.style.display = 'none';
-        }, 800);
+        } else {
+            throw new Error("Gagal menyimpan data hadiah");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Gagal mencatat hadiah, Wir.");
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
     }
-    btn.disabled = false;
-    btn.innerHTML = originalHTML;
 });
 
-// Logika munculin input nominal custom
 document.getElementById('gift-amount')?.addEventListener('change', function() {
     const wrapper = document.getElementById('custom-amount-wrapper');
     if (wrapper) wrapper.style.display = this.value === 'custom' ? 'block' : 'none';
 });
 
-// ====== 5. FETCH WISHES (DARI SDK) ======
+// ====== 5. FETCH WISHES (DARI SUPABASE) ======
 async function fetchWishes() {
     const list = document.getElementById('wishes-list');
-    if (!list || !window.dataSdk) return;
+    if (!list) return;
 
     try {
-        const res = await window.dataSdk.list();
-        if (res.isOk && res.data) {
-            const wishes = res.data
-                .filter(w => w.name && w.message)
-                .sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+        // Ambil data dari tabel 'wishes' diurutkan berdasarkan yang terbaru
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/wishes?select=*&order=created_at.desc`, {
+            method: 'GET',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+            }
+        });
 
-            if (wishes.length > 0) {
-                document.getElementById('wishes-empty').style.display = 'none';
+        if (response.ok) {
+            const wishes = await response.json();
+
+            if (wishes && wishes.length > 0) {
+                const emptyEl = document.getElementById('wishes-empty');
+                if (emptyEl) emptyEl.style.display = 'none';
+                
                 list.innerHTML = wishes.map(w => `
-                    <div class="mb-4 p-4 rounded-lg bg-white/5 border border-white/10 text-left">
-                        <p class="font-bold text-sm text-amber-200">${w.name} <span class="text-[10px] opacity-50 text-white font-normal ml-2 italic">(${w.attendance})</span></p>
-                        <p class="text-sm opacity-80 mt-2 text-white">${w.message}</p>
+                    <div class="mb-4 p-4 rounded-lg bg-white/5 border border-white/10 text-left animate-fade-in">
+                        <p class="font-bold text-sm text-amber-200">${w.name || 'Anonim'} <span class="text-[10px] opacity-50 text-white font-normal ml-2 italic">(${w.attendance || ''})</span></p>
+                        <p class="text-sm opacity-80 mt-2 text-white">${w.message || ''}</p>
                     </div>
                 `).join('');
             }
         }
-    } catch (e) { console.log("Gagal ambil list ucapan"); }
+    } catch (e) { 
+        console.log("Gagal ambil list ucapan dari Supabase:", e); 
+    }
 }
 
 // ====== 6. TOOLS & ANIMASI ======
 function openMapDirections() {
     const alamat = "Jl.Dukuh Bedelan RT 003 / RW 001 Karangsambung Sempor Kebumen";
-    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(alamat)}`, '_blank');
+    window.open(`https://maps.google.com/?q=${encodeURIComponent(alamat)}`, '_blank');
 }
 
 function startCountdown() {
@@ -154,17 +176,21 @@ function startCountdown() {
     setInterval(() => {
         const diff = target - new Date().getTime();
         if (diff < 0) return;
-        document.getElementById('cd-days').textContent = Math.floor(diff / 86400000);
-        document.getElementById('cd-hours').textContent = Math.floor((diff % 86400000) / 3600000);
-        document.getElementById('cd-mins').textContent = Math.floor((diff % 3600000) / 60000);
-        document.getElementById('cd-secs').textContent = Math.floor((diff % 60000) / 1000);
+        
+        const d = document.getElementById('cd-days');
+        const h = document.getElementById('cd-hours');
+        const m = document.getElementById('cd-mins');
+        const s = document.getElementById('cd-secs');
+
+        if (d) d.textContent = Math.floor(diff / 86400000);
+        if (h) h.textContent = Math.floor((diff % 86400000) / 3600000);
+        if (m) m.textContent = Math.floor((diff % 3600000) / 60000);
+        if (s) s.textContent = Math.floor((diff % 60000) / 1000);
     }, 1000);
 }
 
 function toggleMusic() {
     if (!lagu) return;
-    const toast = document.getElementById('toast');
-    
     if (lagu.paused) {
         lagu.play();
         showToast("Musik Diputar 🎵");
@@ -174,7 +200,6 @@ function toggleMusic() {
     }
 }
 
-// Fungsi munculin notif di tengah
 function showToast(message) {
     const toast = document.getElementById('toast');
     if (!toast) return;
@@ -182,7 +207,6 @@ function showToast(message) {
     toast.textContent = message;
     toast.classList.add('show');
     
-    // notif ilang setelah 2 detik
     setTimeout(() => {
         toast.classList.remove('show');
     }, 2000);
@@ -207,7 +231,3 @@ function createLeaves() {
         c.appendChild(l);
     }
 }
-
-// ====== 7. INIT ======
-if (window.dataSdk) window.dataSdk.init();
-if (window.elementSdk) window.elementSdk.init({ defaultConfig, onConfigChange: () => {} });
